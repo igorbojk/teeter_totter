@@ -98,10 +98,10 @@ export default new Vuex.Store({
             const {leftSum, rightSum} = getters;
             if (!leftSum && state.isGameStarted) return MAX_BENDING;
             if (leftSum === rightSum) return 0;
-            return leftSum > rightSum ? (leftSum - rightSum) / leftSum * -100 : (rightSum - leftSum) / rightSum * 100
+            return leftSum > rightSum ? -(leftSum - rightSum) : rightSum - leftSum
         },
         leftSum(state) {
-            return getBlockPower(state.leftSideElements)
+            return getBlockPower(state.leftSideElements, true)
         },
         rightSum(state) {
             return getBlockPower(state.rightSideElements)

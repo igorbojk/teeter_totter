@@ -76,9 +76,9 @@ export default {
             let touchElemTopCoord = 0;
             let touchElemId = null;
             this.leftSideElements.forEach(elem => {
-                const {y} = this.$refs.fallingELement.getElemCoord();
-                const {y: elY} = document.querySelector(`.${elem.id}-elem`).getBoundingClientRect();
-                if(y < elY) {
+                const {y, x} = this.$refs.fallingELement.getElemCoord();
+                const {y: elY, x: elX, elWidth} = document.querySelector(`.${elem.id}-elem`).getBoundingClientRect();
+                if(y < elY && (x > elX || x < elX + elWidth)) {
                     touchElemTopCoord = elY;
                     touchElemId = elem.id;
                 }
@@ -89,7 +89,6 @@ export default {
                     clearTimeout(this.timer);
                     let top = 0;
                     if (touchElemId) {
-                        console.log(document.querySelector(`.${touchElemId}-elem`).getBoundingClientRect())
                         top = document.querySelector(`.${touchElemId}-elem`).getBoundingClientRect().height - 20;
                     }
                     this.$store.dispatch({type: FINISH_FALLING, topOffset: top});
